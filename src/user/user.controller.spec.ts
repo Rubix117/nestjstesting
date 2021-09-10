@@ -3,11 +3,14 @@ import { UserController } from './user.controller';
 import { UserService } from "./user.service";
 import {User} from "./user.entity";
 import {CreateUserDto} from "./DTOs/createUser.dto";
+import {userStub} from "./stubs/user.stub";
+
+jest.mock('./user.service.ts')
 
 describe('UserController', () => {
   let controller: UserController;
   let userService: UserService;
-  const user: User = {id: 1, email: 'DaveTest@email.com', firstName: 'Dave', lastName: 'M'};
+  const user: User = userStub();
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
@@ -16,6 +19,8 @@ describe('UserController', () => {
 
     controller = module.get<UserController>(UserController);
     userService = module.get<UserService>(UserService);
+
+    jest.clearAllMocks();
   });
 
   it('should be defined', () => {
@@ -25,16 +30,12 @@ describe('UserController', () => {
   it('Should return an array of Users', async () => {
 
 
-    const testResult = [user];
-
-    jest.spyOn(userService, 'findAll').mockImplementation(() => testResult);
+    const testResult = [userStub()];
     expect(await controller.findAll()).toEqual(testResult)
   });
 
   it('Create new User', async () =>{
     const createUser: CreateUserDto = {firstName: "Dave", lastName: "Matthews", email: "DM117"}
-
-    jest.spyOn(userService, "createNewUser").mockImplementation(() =>  user)
 
     expect(await controller.createUser(createUser)).toEqual(user);
   });
