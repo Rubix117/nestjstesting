@@ -1,8 +1,8 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post, Param, Put} from '@nestjs/common';
 import {User} from "./user.entity";
 import {UserService} from "./user.service";
 import {CreateUserDto} from "./DTOs/createUser.dto";
-import { plainToClass } from 'class-transformer';
+import {UpdateUserDto} from "./DTOs/updateUser.dto";
 
 
 @Controller('users')
@@ -17,8 +17,11 @@ export class UserController {
 
     @Post()
     createUser(@Body()newUser: CreateUserDto){
-        console.log('Creating User');
-        const userToCreate = plainToClass(User, newUser)
-        return this.userService.createNewUser(userToCreate);
+        return this.userService.createNewUser(newUser);
+    }
+
+    @Put('/:id')
+    updateUser(@Param('id') id: number,  @Body() updateUser: UpdateUserDto){
+        return this.userService.updateUser(id, updateUser)
     }
 }

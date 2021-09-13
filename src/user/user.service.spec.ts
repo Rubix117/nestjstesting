@@ -4,6 +4,7 @@ import {UserService} from './user.service';
 import {Repository} from "typeorm";
 import {User} from "./user.entity";
 import {userStub} from "./stubs/user.stub";
+import {updateUserStub} from "./stubs/updateUser.stub";
 
 
 describe('UserService tests', () => {
@@ -24,14 +25,31 @@ describe('UserService tests', () => {
     userRepo = module.get<Repository<User>>(getRepositoryToken(User));
   });
 
-  it('should be defined', () => {
+  test('UserService should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  it('Get All Users', () =>{
+  describe('test get all users', () =>{
+    test('Should return 1 user with a count of 1', () =>{
+      jest.spyOn(userRepo, 'findAndCount').mockResolvedValue([[userStub()], 1])
+      expect(service.findAll()).resolves.toEqual([[userStub()], 1])
+    });
+  })
 
-    jest.spyOn(userRepo, 'findAndCount').mockResolvedValue([[userStub()], 1])
 
-    expect(service.findAll()).resolves.toEqual([[userStub()], 1])
+  describe('Update User', () =>{
+    test('Should be defined', () =>{
+      expect(service.updateUser).toBeDefined()
+    });
+
+    test('Should Accept updateUserDTO as a paramater', () =>{
+      const updatedUser = updateUserStub();
+      jest.spyOn(userRepo, 'update').mockReturnThis();
+      service.updateUser(1, updatedUser)
+    });
+
+    test('Should return the updatedUserDTO', () =>{
+
+    });
   })
 });
