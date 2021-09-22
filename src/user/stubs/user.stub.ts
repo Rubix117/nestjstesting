@@ -8,3 +8,12 @@ export const userStub = (): User => {
         lastName: "Matthews"
     }
 }
+
+export const newUser = (email:string, id:number, firstName:string, lastName:string): User => {
+    return {
+        email,
+        id,
+        firstName,
+        lastName
+    }
+}

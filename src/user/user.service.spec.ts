@@ -5,6 +5,7 @@ import {Repository} from "typeorm";
 import {User} from "./user.entity";
 import {userStub} from "./stubs/user.stub";
 import {updateUserStub} from "./stubs/updateUser.stub";
+import {expect, jest} from "@jest/globals";
 
 
 describe('UserService tests', () => {
@@ -31,9 +32,12 @@ describe('UserService tests', () => {
 
   describe('test get all users', () =>{
     test('Should return 1 user with a count of 1', () =>{
-      jest.spyOn(userRepo, 'findAndCount').mockResolvedValue([[userStub()], 1])
-      expect(service.findAll()).resolves.toEqual([[userStub()], 1])
+
+      jest.spyOn(userRepo, 'findAndCount').mockResolvedValue([[userStub()], 1]);
+      expect(service.findAll()).resolves.toEqual([[userStub()], 1]);
     });
+
+
   })
 
 

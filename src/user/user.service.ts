@@ -13,7 +13,7 @@ export class UserService {
     ) {}
 
     createNewUser(newUser: CreateUserDto): Promise<User>{
-       return this.userRepository.save(newUser as unknown as User)
+       return this.userRepository.save(newUser)
     }
 
     findAll(): Promise<[User[], number]>{

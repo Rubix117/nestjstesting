@@ -4,7 +4,7 @@ import { UserService } from "./user.service";
 import {User} from "./user.entity";
 import {CreateUserDto} from "./DTOs/createUser.dto";
 import {userStub} from "./stubs/user.stub";
-
+//Will find the dir __mocks__ and will mock the service/class
 jest.mock('./user.service.ts')
 
 describe('UserController', () => {
