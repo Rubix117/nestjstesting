@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controller';
-import { UserService } from "./user.service";
-import {User} from "./user.entity";
-import {CreateUserDto} from "./DTOs/createUser.dto";
-import {userStub} from "./stubs/user.stub";
-import {jest} from "@jest/globals";
+import { UserService } from './user.service';
+import { User } from './user.entity';
+import { CreateUserDto } from './DTOs/createUser.dto';
+import { userStub } from './stubs/user.stub';
+import { jest } from '@jest/globals';
 //Will find the dir __mocks__ and will mock the service/class
-jest.mock('./user.service.ts')
+jest.mock('./user.service.ts');
 
 describe('UserController', () => {
   let controller: UserController;
@@ -15,7 +15,7 @@ describe('UserController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
-      providers: [UserService]
+      providers: [UserService],
     }).compile();
 
     controller = module.get<UserController>(UserController);
@@ -30,19 +30,29 @@ describe('UserController', () => {
 
   it('Should return an array of Users', async () => {
     const testResult = [userStub()];
-    expect(await controller.findAll()).toEqual(testResult)
+    expect(await controller.findAll()).toEqual(testResult);
   });
 
-  it('Create new User', async () =>{
-    const createUser: CreateUserDto = {firstName: "Dave", lastName: "Matthews", email: "DM117"};
+  it('Create new User', async () => {
+    const createUser: CreateUserDto = {
+      firstName: 'Dave',
+      lastName: 'Matthews',
+      email: 'DM117',
+    };
 
     expect(await controller.createUser(createUser)).toEqual(user);
   });
 
   it('User exists error', () => {
-    const createUser: CreateUserDto = {firstName: "Dave", lastName: "Matthews", email: "DM117@test.com"};
+    const createUser: CreateUserDto = {
+      firstName: 'Dave',
+      lastName: 'Matthews',
+      email: 'DM117@test.com',
+    };
 
-    (userService.createNewUser as unknown as jest.Mock).mockRejectedValue(new Error('UserExists'))
+    (userService.createNewUser as unknown as jest.Mock).mockRejectedValue(
+      new Error('UserExists'),
+    );
 
     expect(controller.createUser(createUser)).rejects.toThrow('UserExists');
   });

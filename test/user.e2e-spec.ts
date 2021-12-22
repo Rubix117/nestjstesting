@@ -4,21 +4,18 @@ import * as request from 'supertest';
 import { UserModule } from '../src/user/user.module';
 
 describe('UserController (e2e)', () => {
-    let app: INestApplication;
+  let app: INestApplication;
 
-    beforeEach(async () => {
-        const moduleFixture: TestingModule = await Test.createTestingModule({
-            imports: [UserModule],
-        }).compile();
+  beforeEach(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [UserModule],
+    }).compile();
 
-        app = moduleFixture.createNestApplication();
-        await app.init();
-    });
+    app = moduleFixture.createNestApplication();
+    await app.init();
+  });
 
-    it('/user (GET)', () => {
-        return request(app.getHttpServer())
-            .get('/user')
-            .expect(200)
-            .expect([]);
-    });
+  it('/user (GET)', () => {
+    return request(app.getHttpServer()).get('/user').expect(200).expect([]);
+  });
 });
