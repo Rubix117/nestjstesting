@@ -1,9 +1,10 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, PrimaryGeneratedColumn, Unique} from "typeorm";
 
 @Entity('user')
+@Unique('unique-user-email', ['email'])
 export class User{
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn("uuid")
     id: number;
 
     @Column()
