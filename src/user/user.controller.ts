@@ -17,7 +17,11 @@ export class UserController {
 
     @Post()
     createUser(@Body()newUser: CreateUserDto){
-        return this.userService.createNewUser(newUser);
+        try{
+            return this.userService.createNewUser(newUser);
+        }catch (e) {
+            throw e;
+        }
     }
 
     @Put('/:id')

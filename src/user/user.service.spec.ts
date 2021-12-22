@@ -36,8 +36,6 @@ describe('UserService tests', () => {
       jest.spyOn(userRepo, 'findAndCount').mockResolvedValue([[userStub()], 1]);
       expect(service.findAll()).resolves.toEqual([[userStub()], 1]);
     });
-
-
   })
 
 
