@@ -5,6 +5,10 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+    "node": ">=16.13.1"
+  },
+  "engineStrict": true,
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -31,7 +35,7 @@
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.6",
+    "rxjs": "^7.4.0",
     "typeorm": "^0.2.32"
   },
   "devDependencies": {
