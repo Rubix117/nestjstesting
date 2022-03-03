@@ -1,7 +1,8 @@
 import {ArgumentsHost, Catch, ExceptionFilter, HttpStatus, Logger} from "@nestjs/common";
 import { Request, Response } from 'express';
 import {QueryFailedError} from "typeorm";
-@Catch()
+
+@Catch(QueryFailedError)
 export class PostgresFilter implements ExceptionFilter {
     catch(exception: any, host: ArgumentsHost){
         const ctx = host.switchToHttp();
@@ -18,7 +19,7 @@ export class PostgresFilter implements ExceptionFilter {
                     message: 'User Already Exists'
                 });
         } else {
-            return exception;
+           return exception;
         }
     }
 }
