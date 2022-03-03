@@ -1,10 +1,12 @@
-import { Body, Controller, Get, Post, Param, Put } from '@nestjs/common';
+import {Body, Controller, Get, Post, Param, Put, UseFilters} from '@nestjs/common';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 import { CreateUserDto } from './DTOs/createUser.dto';
 import { UpdateUserDto } from './DTOs/updateUser.dto';
+import {PostgresFilter} from "../filters/PostgresFilter";
 
 @Controller('users')
+@UseFilters(new PostgresFilter())
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -15,11 +17,7 @@ export class UserController {
 
   @Post()
   createUser(@Body() newUser: CreateUserDto) {
-    try {
       return this.userService.createNewUser(newUser);
-    } catch (e) {
-      throw e;
-    }
   }
 
   @Put('/:id')

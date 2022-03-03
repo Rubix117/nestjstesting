@@ -1,9 +1,10 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import {BadRequestException, Injectable, Logger, UseFilters} from '@nestjs/common';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './DTOs/createUser.dto';
 import { UpdateUserDto } from './DTOs/updateUser.dto';
+import {PostgresFilter} from "../filters/PostgresFilter";
 
 @Injectable()
 export class UserService {
@@ -13,14 +14,7 @@ export class UserService {
   ) {}
 
   createNewUser(newUser: CreateUserDto): Promise<User> {
-    return this.userRepository.save(newUser).catch((e) => {
-      Logger.log('Error Message');
-      if (e.code === '23505') {
-        throw new BadRequestException('User already Exists');
-      } else {
-        return e;
-      }
-    });
+    return this.userRepository.save(newUser);
   }
 
   findAll(): Promise<[User[], number]> {

@@ -49,8 +49,7 @@ describe('UserController', () => {
       lastName: 'Matthews',
       email: 'DM117@test.com',
     };
-
-    (userService.createNewUser as unknown as jest.Mock).mockRejectedValue(
+    jest.spyOn(userService, 'createNewUser').mockRejectedValue(
       new Error('UserExists'),
     );
 
